@@ -36,7 +36,9 @@ void fInitTasks( void ){
 			while(fNumberOfTasks > fIndex){
 
 					vTaskPrioritySet(fReadyTasks[fIndex].handler, tskIDLE_PRIORITY + configMAX_PRIORITIES - fPriority++);
-												
+					fPriority++;
+					fIndex++;					
+
 			}		
 			 
 			vTaskStartScheduler();
