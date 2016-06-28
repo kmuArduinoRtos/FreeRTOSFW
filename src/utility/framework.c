@@ -22,26 +22,24 @@ BaseType_t fTaskDef(TaskFunction_t pxTaskCode, UBaseType_t fPeriod){
 	return fReturn;
 }
 
+
+
+
+
 void fInitTasks( void ){
-	UBaseType_t fIndex, fPriority;
-	fPriority = ( UBaseType_t ) 1U;
-	fIndex = ( UBaseType_t ) 0U;
-	
-	fSort();
+			UBaseType_t fIndex, fPriority;
+			fPriority = ( UBaseType_t ) 1U;
+			fIndex = ( UBaseType_t ) 0U;
+						
+			fSort();
 
-	while(1){
-		vTaskPrioritySet(fReadyTasks[fIndex].handler, tskIDLE_PRIORITY + fPriority  );
+			while(fNumberOfTasks > fIndex){
 
-		if(( fNumberOfTasks - 1 ) == fIndex)
-			break;
-
-		if(fReadyTasks[fIndex].period > fReadyTasks[fIndex+1].period)
-			fPriority++;
-
-		fIndex++;
-		}
-
-	vTaskStartScheduler();
+					vTaskPrioritySet(fReadyTasks[fIndex].handler, tskIDLE_PRIORITY + configMAX_PRIORITIES - fPriority++);
+												
+			}		
+			 
+			vTaskStartScheduler();
 }
 
 void fSort()
