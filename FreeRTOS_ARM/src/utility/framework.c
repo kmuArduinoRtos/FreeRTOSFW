@@ -80,11 +80,6 @@ void fInitTasks( void ){
 	fPriority =  fIndex;
 	fSort();
 
-	while(1){
-		vTaskPrioritySet(fReadyTasks[fIndex].handler, fIndex);
-		if(++fIndex==fNumberOfTasks) break;
-	}
-
 	vTaskStartScheduler();
 }
 
