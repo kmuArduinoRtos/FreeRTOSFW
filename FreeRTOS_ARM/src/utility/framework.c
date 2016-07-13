@@ -74,13 +74,28 @@ BaseType_t fTaskDef(void (*funcPtr)(), long fPeriod){
 /* 프레임워크 계층의 스케쥴러 실행 함수입니다. FreeRTOS 계층의 vTaskStartScheduler()를 호출하는데,
 그 전에 vTaskPrioritySet()를 이용해 각 태스크에 우선순위를 부여합니다. 
 큰 주기를 갖은 태스크는 낮은 우선 순위를 갖게 됩니다.*/
-void fInitTasks( void ){
-	UBaseType_t fIndex, fPriority;
-	fIndex = ( UBaseType_t ) 0U;
-	fPriority =  fIndex;
-	fSort();
-
+void fStart()
+{
+	xTaskCreate(fInitTasks, NULL, configMINIMAL_STACK_SIZE, NULL, configMAX_PRIORITIES, NULL);
 	vTaskStartScheduler();
+}
+static void fInitTasks( void *arg)
+{
+	UBaseType_t fIndex, fPriority;
+	fPriority = ( UBaseType_t ) 1U;
+	fIndex = ( UBaseType_t ) 0U;
+	int i ;
+
+	fSort();
+	while(fNumberOfTasks > fIndex)
+	{
+		vTaskPrioritySet(fReadyTasks[fIndex].handler, tskIDLE_PRIORITY + fPriority);
+		fPriority++;
+		fIndex++;
+	}		
+	//while(1) {i++; i--;};
+	//vTaskPrioritySet(NULL, 1);
+	vTaskDelete(NULL);
 }
 
 /* 프레임워크 계층의 태스크의 딜레이 함수 입니다. 사용자 함수에서 사용 됩니다.*/

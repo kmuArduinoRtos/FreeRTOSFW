@@ -39,7 +39,8 @@ long period;
 BaseType_t fTaskDef( void (*funcPtr)() , long ) PRIVILEGED_FUNCTION ;
 
 /*프레임워크 계층의 스케쥴러 호출 함수입니다.*/
-void fInitTasks( void ) PRIVILEGED_FUNCTION;
+static void fInitTasks( void *arg); PRIVILEGED_FUNCTION;
+void fStart();
 
 /*정렬 함수 입니다. Bubble Sort.*/
 void fSort() PRIVILEGED_FUNCTION;
