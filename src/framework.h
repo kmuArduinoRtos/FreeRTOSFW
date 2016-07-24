@@ -1,19 +1,25 @@
 /*
-    KMU ARDUINO RTOS - Copyright (C) 2016 KOOKMIN UNIV CS.
+    RTOS Framework for Arduino
+    Copyright (c) 2016, School of Computer Enge. Kookmin Univ., Seoul, Korea
     All rights reserved
 
     VISIT https://github.com/kmuArduinoRtos/FreeRTOSFW/tree/master/FreeRTOS_AVR/src/utility 
     TO ENSURE YOU ARE USING THE LATEST VERSION.
+    // MINSUK -->
+    //    1. to endire 하지말고, 우리 예제가 돌아가는 정확한 FreeRTOS version을 명시해 주세요.
 */
 
-#ifndef FRAME_WORK_H
-#define FRAME_WORK_H
+#ifndef FRAMEWORK_H
+#define FRAMEWORK_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 #include <FreeRTOS_AVR.h>
+// MINSUK -->
+//    아두이노에 (더 정확하게는 compiler에) 따라 FreeRTOS_AVR.h 대신 arm 용 헤더가 불도록 
+//    #ifdef 스위치 추가
 
 typedef void * TaskHandle_t;
 void fStart();
@@ -23,8 +29,8 @@ void fStart();
 @long period: 태스크 주기*/
 typedef struct FxReadyTask
 {
-TaskHandle_t handler;
-long period;
+    TaskHandle_t handler;
+    long period;
 } FReadyTask;
 
 /* 태스크의 주기 설정과 함수 코드 간략화를 위해 사용됩니다.
@@ -32,8 +38,8 @@ long period;
 @long period: 태스크 주기*/
 typedef struct FxHideParams
 {
-void (*funcPtr)();
-long period;
+    void (*funcPtr)();
+    long period;
 } FHideParams;
 
 /*프레임워크 계층의 태스크를 정의하는 함수입니다.
