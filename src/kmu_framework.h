@@ -3,10 +3,9 @@
     Copyright (c) 2016, School of Computer Enge. Kookmin Univ., Seoul, Korea
     All rights reserved
 
-    VISIT https://github.com/kmuArduinoRtos/FreeRTOSFW/tree/master/FreeRTOS_AVR/src/utility 
-    TO ENSURE YOU ARE USING THE LATEST VERSION.
-    // MINSUK -->
-    //    1. to endire 하지말고, 우리 예제가 돌아가는 정확한 FreeRTOS version을 명시해 주세요.
+	
+
+      
 */
 
 #ifndef FRAMEWORK_H
@@ -16,7 +15,7 @@
 extern "C" {
 #endif
 
-#include <FreeRTOS_AVR.h>
+#include "./FreeRTOS_AVR/FreeRTOS_AVR.h"
 // MINSUK -->
 //    아두이노에 (더 정확하게는 compiler에) 따라 FreeRTOS_AVR.h 대신 arm 용 헤더가 불도록 
 //    #ifdef 스위치 추가
