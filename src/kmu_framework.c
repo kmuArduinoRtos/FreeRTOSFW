@@ -9,7 +9,7 @@
 */
 
 /* FrameWork includes. */
-#include "framework.h"
+#include "kmu_framework.h"
 
 /* 생성될 수 있는 최대 태스크의 개수입니다. 이 값은 FreeRTOSConfig.h의 configMAX_PRIORITIES와 관련되어 있습니다. 
 만약 configMAX_PRIORITIES 값이 4라면, 우선순위는 IdleTask를 위한 0을 제외하고 1~4가 각각의 태스크에 할당됩니다. 
