@@ -40,11 +40,11 @@ fInitTasks();
 A와 B를 각각 출력하는 함수 두 개를 정의합니다.
 ```
 void print_A() {
-    Serial.println("A");
+    Serial.print("A");
 }
 
 void print_B() {
-    Serial.println("B");
+    Serial.print("B");
 }
 ```
 
@@ -64,12 +64,87 @@ fInitTasks();
 
 ### 실행 결과
 ```
-아직ㅠㅠ
+ABAAABAAABAAAB...
 ```
 스케줄러를 실행함과 동시에, A와 B가 출력되게 됩니다. 그런데, A의 주기는 1초이고 B의 주기는 3초이기 때문에, print_A의 태스크는 print_B보다 상대적으로 높은 우선순위를 갖게 됩니다. 그렇기 때문에, A가 B보다 먼저 실행되게 됩니다.
 
 ## RGB & 7Segment
-...
+RGB LED와 7Segment display를 동시에 실행하는 프로그램입니다.
+
+### 1. 함수 정의
+RGB LED를 점멸하는 함수와 7Segment를 표시하는 함수를 정의합니다.
+RGB()는 1초마다 빨강, 초록, 파랑 순서대로 점멸하는 함수이며,
+7segment()는 1초마다 1부터 10까지 차례대로 표시하는 함수입니다.
+```
+void RGB() {
+   analogWrite(R,255); analogWrite(G,0); analogWrite(B,0);
+   fDelay(1000);
+   analogWrite(R,0); analogWrite(G,255); analogWrite(B,0);
+   fDelay(1000);
+   analogWrite(R,0); analogWrite(G,0); analogWrite(B,255);
+}
+
+void 7segment() {
+  int i = 0;
+  while (1) {
+    for(i=1; i<10; i++){
+      show(4,i); 
+      fDelay(1000);
+    }
+  }
+}
+```
+> 두 함수의 서브 함수는 [예제](https://github.com/kmuArduinoRtos/FreeRTOSFW)에서 확인하실 수 있습니다.
+
+### 2. 태스크 정의
+위에서 정의한 RGB()와 7segment()를 태스크로 정의합니다. 
+RGB()는 3초마다, 7segment()는 10초마다 실행되도록 합니다.
+```
+fTaskDef(RGB, 3000);
+fTaskDef(7segment, 10000);
+```
+
+### 3. 스케줄러 실행
+스케줄러를 실행합니다.
+```
+fInitTasks();
+```
+
+### 실행 결과
+```
+...?
+```
+
 
 ## ServoMotor & 8x8 dot matrix
 ...
+
+### 1. 함수 정의
+...
+```
+void RGB() {
+   ...
+}
+
+void 7segment() {
+  ...
+}
+```
+
+### 2. 태스크 정의
+...
+```
+fTaskDef(RGB, 3000);
+fTaskDef(7segment, 10000);
+```
+
+### 3. 스케줄러 실행
+스케줄러를 실행합니다.
+```
+fInitTasks();
+```
+
+### 실행 결과
+```
+...?
+```
